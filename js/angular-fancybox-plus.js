@@ -103,6 +103,8 @@
         function link($scope, $element, $attributes, controller) {
             var cb = null;
 
+            //TODO check https://github.com/lmc-eu/ngx-library/blob/master/src/modules/ui/lightbox/lightbox.js
+
             $scope.$watch('open', function (newValue, oldValue) {
                 //console.log("watch $scope.open(" + $scope.open + ") " + oldValue + "->" + newValue);
                 if (oldValue !== newValue) {
