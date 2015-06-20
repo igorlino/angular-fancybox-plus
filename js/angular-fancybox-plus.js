@@ -2,70 +2,70 @@
     'use strict';
 
     angular.module('fancyboxplus', [])
-        .service('fancyboxplusService', fancyboxService)
+        .service('fancyboxService', fancyboxService)
         .directive('fancyboxPlus', fancyboxPlusDirective);
 
     function fancyboxService() {
 
-        //Fancybox JavaScript API reference:
-        // fancybox.net/api
+        //Fancybox-Plus JavaScript API reference:
+        // http://igorlino.github.io/fancybox-plus/api.htm
 
         var service = {
-            fancyboxplus: fancyboxplus, //returns the fancyboxplus jquery plugin
+            fancyboxPlus: fancyboxPlus, //returns the fancyboxplus jquery plugin
 
             showActivity: showActivity,//Shows loading animation
-        hideActivity: hideActivity,//Hides loading animation
-        next: next,//Displays the next gallery item
-        prev: prev,//Displays the previous gallery item
-        pos: pos,//Displays item by index from gallery
-        cancel: cancel,//Cancels loading content
-        close: close,//Hides FancyBox. Within an iframe use - parent.close();
-        resize: resize,//Auto-resizes FancyBox height to match height of content
-        center: center//Centers FancyBox in viewport
+            hideActivity: hideActivity,//Hides loading animation
+            next: next,//Displays the next gallery item
+            prev: prev,//Displays the previous gallery item
+            pos: pos,//Displays item by index from gallery
+            cancel: cancel,//Cancels loading content
+            close: close,//Hides FancyBox. Within an iframe use - parent.close();
+            resize: resize,//Auto-resizes FancyBox height to match height of content
+            center: center//Centers FancyBox in viewport
         };
         return service;
 
         ////////////
 
 
-        function fancyboxplus() {
-            return $.fancyboxplus;
+        function fancyboxPlus() {
+            return $.fancyboxPlus;
         }
 
         function showActivity() {
-            fancyboxplus().showActivity();
+            fancyboxPlus().showActivity();
         }
 
         function hideActivity() {
-            fancyboxplus().hideActivity();
+            fancyboxPlus().hideActivity();
         }
 
         function pos() {
-            fancyboxplus().pos();
+            fancyboxPlus().pos();
         }
 
         function cancel() {
-            fancyboxplus().cancel();
+            fancyboxPlus().cancel();
         }
 
         function center() {
-            fancyboxplus().center();
+            fancyboxPlus().center();
         }
 
         function next() {
-            fancyboxplus().next();
+            fancyboxPlus().next();
         }
 
         function prev() {
-            fancyboxplus().prev();
+            fancyboxPlus().prev();
         }
 
         function close() {
-            fancyboxplus().close();
+            fancyboxPlus().close();
         }
 
         function resize() {
-            fancyboxplus().resize();
+            fancyboxPlus().resize();
         }
     }
 
@@ -102,8 +102,6 @@
         link.$inject = ['$scope', '$element', '$attributes'];
         function link($scope, $element, $attributes, controller) {
             var cb = null;
-
-            //TODO check https://github.com/lmc-eu/ngx-library/blob/master/src/modules/ui/lightbox/lightbox.js
 
             $scope.$watch('open', function (newValue, oldValue) {
                 //console.log("watch $scope.open(" + $scope.open + ") " + oldValue + "->" + newValue);
@@ -183,19 +181,19 @@
                 $timeout(function () {
                     if (options.boxFor) {
                         //opens the element by id boxFor
-                        cb = $(options.boxFor).fancyboxplus(options);
+                        cb = $(options.boxFor).fancyboxPlus(options);
                     } else if (options.href) {
                         //opens the colorbox using an href.
-                        cb = $.colorbox(options);
+                        cb = $.fancyboxPlus(options);
                     }
                 }, 0);
             }
 
             function onComplete() {
                 /*$rootScope.$apply(function () {
-                    var content = $('#cboxLoadedContent');
-                    $compile(content)($rootScope);
-                });*/
+                 var content = $('#cboxLoadedContent');
+                 $compile(content)($rootScope);
+                 });*/
             }
         }
     }
@@ -204,8 +202,7 @@
 ();
 
 
-
-(function(angular, $) {
+(function (angular, $) {
     'use strict';
 
     var module = angular.module('ngx.ui.lightbox', ['ngx.config', 'ngx.loader']);
@@ -213,22 +210,22 @@
     /**
      * Lightbox directive
      */
-    module.directive('ngxLightbox', ['ngxConfig', 'ngxLoader', function(ngxConfig, ngxLoader) {
+    module.directive('ngxLightbox', ['ngxConfig', 'ngxLoader', function (ngxConfig, ngxLoader) {
         var deps = [
             ngxConfig.libsPath + 'jquery.fancybox/jquery.fancybox.js',
             ngxConfig.libsPath + 'jquery.fancybox/css/fancybox.css'
         ];
 
         return {
-            link: function(scope, element, attrs) {
+            link: function (scope, element, attrs) {
                 // group tag
                 if (attrs.ngxLightbox) {
                     element.attr('rel', attrs.ngxLightbox);
                 }
 
-                ngxLoader(deps, function() {
+                ngxLoader(deps, function () {
                     $(element).fancybox({
-                        onStart: function(items, index, options) {
+                        onStart: function (items, index, options) {
                             var arrowStyle = {
                                 height: '100%',
                                 bottom: 0
@@ -274,7 +271,7 @@
                             }
 
                             // override default options from attributes
-                            angular.forEach(['width', 'height', 'title', 'type'], function(attr) {
+                            angular.forEach(['width', 'height', 'title', 'type'], function (attr) {
                                 if (attrs[attr]) {
                                     options[attr] = attrs[attr];
                                 }
