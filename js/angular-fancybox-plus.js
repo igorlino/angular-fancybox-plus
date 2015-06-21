@@ -3,7 +3,8 @@
 
     angular.module('fancyboxplus', [])
         .service('fancyboxService', fancyboxService)
-        .directive('fancyboxPlus', fancyboxPlusDirective);
+        .directive('fancyboxable', fancyboxableDirective)
+        .directive('fancybox', fancyboxDirective);
 
     function fancyboxService() {
 
@@ -69,8 +70,93 @@
         }
     }
 
-    fancyboxPlusDirective.$inject = ['$compile', '$rootScope', '$http', '$parse', '$timeout', 'fancyboxService'];
-    function fancyboxPlusDirective($compile, $rootScope, $http, $parse, $timeout, fancyboxService) {
+    fancyboxableDirective.$inject = ['$compile', '$rootScope', '$http', '$parse', '$timeout', 'fancyboxService'];
+    function fancyboxableDirective($compile, $rootScope, $http, $parse, $timeout, fancyboxService) {
+        var service = {
+            restrict: 'A',
+            link: fancyboxableLink,
+            priority: 100 // must lower priority than ngSrc (99)
+        };
+        return service;
+
+        ////////////////////////////
+
+
+        fancyboxableLink.$inject = ['$scope', '$element', '$attributes'];
+        function fancyboxableLink($scope, $element, $attributes, controller) {
+            var fbp = null;
+
+            $scope.$on('$destroy', function () {
+                $element.remove();
+            });
+
+            init();
+
+            function init(open) {
+                var options = {
+                    href: $attributes.src ? $attributes.src : $attributes.href,
+                    onComplete: function () {
+                        onComplete();
+                    }
+                };
+
+                //generic way that sets all (non-function) parameters of fancybox-plus.
+                if ($attributes.fancyboxable && $attributes.fancyboxable.length > 0) {
+                    var fbpOptionsFunc = $parse($attributes.fancyboxable);
+                    var fbpOptions = fbpOptionsFunc($scope);
+                    angular.extend(options, fbpOptions);
+                }
+
+                //clean undefined
+                for (var key in options) {
+                    if (options.hasOwnProperty(key)) {
+                        if (typeof(options[key]) === 'undefined') {
+                            delete options[key];
+                        }
+                    }
+                }
+
+                if (typeof(open) !== 'undefined') {
+                    options.open = open;
+                }
+
+                //wait for the DOM view to be ready
+                $timeout(function () {
+
+                    if (!$attributes.ngSrc) {
+                        //opens the fancybox using an href.
+                        fbp = $($element).fancyboxPlus(options);
+                    } else {
+                        //$element.bind('load', function() {
+                        /*$scope.$apply(function () {
+                         options.href = $attributes.src ? $attributes.src : $attributes.href;
+                         cb = $.colorbox(options);
+                         });*/
+                        //wait for the DOM view to be ready
+                        $timeout(function () {
+                            options.href = $attributes.src ? $attributes.src : $attributes.href;
+                            fbp = $($element).fancyboxPlus(options);
+                        }, 300);
+                        //});
+                    }
+
+
+                }, 0);
+            }
+
+            function onComplete() {
+                $rootScope.$apply(function () {
+                    var content = $('#fbplus-content');
+                    $compile(content)($rootScope);
+                });
+            }
+        }
+
+
+    }
+
+    fancyboxDirective.$inject = ['$compile', '$rootScope', '$http', '$parse', '$timeout', 'fancyboxService'];
+    function fancyboxDirective($compile, $rootScope, $http, $parse, $timeout, fancyboxService) {
         var service = {
             restrict: 'E',
             scope: {
@@ -85,7 +171,7 @@
                 onClosed: '&' //Will be called once FancyBox is closed
 
             },
-            require: 'fancyboxplus',
+            require: 'fancybox',
             link: link,
             controller: controller,
             controllerAs: 'vm'
@@ -101,7 +187,7 @@
 
         link.$inject = ['$scope', '$element', '$attributes'];
         function link($scope, $element, $attributes, controller) {
-            var cb = null;
+            var fbp = null;
 
             $scope.$watch('open', function (newValue, oldValue) {
                 //console.log("watch $scope.open(" + $scope.open + ") " + oldValue + "->" + newValue);
@@ -159,7 +245,7 @@
                     }
                 };
 
-                //generic way that sets all (non-function) parameters of colorbox.
+                //generic way that sets all (non-function) parameters of fancybox-plus.
                 if ($scope.options) {
                     angular.extend(options, $scope.options);
                 }
@@ -181,19 +267,19 @@
                 $timeout(function () {
                     if (options.boxFor) {
                         //opens the element by id boxFor
-                        cb = $(options.boxFor).fancyboxPlus(options);
+                        fbp = $(options.boxFor).fancyboxPlus(options);
                     } else if (options.href) {
-                        //opens the colorbox using an href.
-                        cb = $.fancyboxPlus(options);
+                        //opens the fancybox-plus using an href.
+                        fbp = $.fancyboxPlus(options);
                     }
                 }, 0);
             }
 
             function onComplete() {
-                /*$rootScope.$apply(function () {
-                 var content = $('#cboxLoadedContent');
-                 $compile(content)($rootScope);
-                 });*/
+                $rootScope.$apply(function () {
+                    var content = $('#fbplus-content');
+                    $compile(content)($rootScope);
+                });
             }
         }
     }
@@ -201,91 +287,91 @@
 })
 ();
 
-
-(function (angular, $) {
-    'use strict';
-
-    var module = angular.module('ngx.ui.lightbox', ['ngx.config', 'ngx.loader']);
-
-    /**
-     * Lightbox directive
-     */
-    module.directive('ngxLightbox', ['ngxConfig', 'ngxLoader', function (ngxConfig, ngxLoader) {
-        var deps = [
-            ngxConfig.libsPath + 'jquery.fancybox/jquery.fancybox.js',
-            ngxConfig.libsPath + 'jquery.fancybox/css/fancybox.css'
-        ];
-
-        return {
-            link: function (scope, element, attrs) {
-                // group tag
-                if (attrs.ngxLightbox) {
-                    element.attr('rel', attrs.ngxLightbox);
-                }
-
-                ngxLoader(deps, function () {
-                    $(element).fancybox({
-                        onStart: function (items, index, options) {
-                            var arrowStyle = {
-                                height: '100%',
-                                bottom: 0
-                            };
-
-                            angular.extend(options, {
-                                href: (attrs.href || attrs.src),
-                                title: attrs.title,
-                                titlePosition: 'inside',
-                                speedIn: 150,
-                                speedOut: 150
-                            });
-
-                            // autoset options by attributes
-                            if (options.href.match(/youtube\.com/)) {
-                                // youtube video
-                                angular.extend(options, {
-                                    type: 'swf',
-                                    href: attrs.href + '?autoplay=1&fs=1',        // AS3 + autoplay + fullscreen
-                                    width: 661,
-                                    height: 481,
-                                    swf: {
-                                        wmode: 'transparent',
-                                        allowfullscreen: true
-                                    }
-                                });
-                                angular.extend(arrowStyle, {
-                                    height: '40%',
-                                    bottom: '30%'
-                                });
-
-                            } else if (options.href.match(/(jpg|png|gif|bmp)$/) || options.href.match(/^data:image\//)) {
-                                // image
-                                options.type = 'image';
-
-                            } else {
-                                // iframe
-                                angular.extend(options, {
-                                    type: 'iframe',
-                                    width: '90%',
-                                    height: '95%'
-                                });
-                            }
-
-                            // override default options from attributes
-                            angular.forEach(['width', 'height', 'title', 'type'], function (attr) {
-                                if (attrs[attr]) {
-                                    options[attr] = attrs[attr];
-                                }
-                            });
-
-                            $('#fancybox-left').css(arrowStyle);
-                            $('#fancybox-right').css(arrowStyle);
-
-                            return options;
-                        }
-                    });
-                });
-            }
-        };
-    }]);
-
-})(window.angular, window.jQuery);
+//
+//(function (angular, $) {
+//    'use strict';
+//
+//    var module = angular.module('ngx.ui.lightbox', ['ngx.config', 'ngx.loader']);
+//
+//    /**
+//     * Lightbox directive
+//     */
+//    module.directive('ngxLightbox', ['ngxConfig', 'ngxLoader', function (ngxConfig, ngxLoader) {
+//        var deps = [
+//            ngxConfig.libsPath + 'jquery.fancybox/jquery.fancybox.js',
+//            ngxConfig.libsPath + 'jquery.fancybox/css/fancybox.css'
+//        ];
+//
+//        return {
+//            link: function (scope, element, attrs) {
+//                // group tag
+//                if (attrs.ngxLightbox) {
+//                    element.attr('rel', attrs.ngxLightbox);
+//                }
+//
+//                ngxLoader(deps, function () {
+//                    $(element).fancybox({
+//                        onStart: function (items, index, options) {
+//                            var arrowStyle = {
+//                                height: '100%',
+//                                bottom: 0
+//                            };
+//
+//                            angular.extend(options, {
+//                                href: (attrs.href || attrs.src),
+//                                title: attrs.title,
+//                                titlePosition: 'inside',
+//                                speedIn: 150,
+//                                speedOut: 150
+//                            });
+//
+//                            // autoset options by attributes
+//                            if (options.href.match(/youtube\.com/)) {
+//                                // youtube video
+//                                angular.extend(options, {
+//                                    type: 'swf',
+//                                    href: attrs.href + '?autoplay=1&fs=1',        // AS3 + autoplay + fullscreen
+//                                    width: 661,
+//                                    height: 481,
+//                                    swf: {
+//                                        wmode: 'transparent',
+//                                        allowfullscreen: true
+//                                    }
+//                                });
+//                                angular.extend(arrowStyle, {
+//                                    height: '40%',
+//                                    bottom: '30%'
+//                                });
+//
+//                            } else if (options.href.match(/(jpg|png|gif|bmp)$/) || options.href.match(/^data:image\//)) {
+//                                // image
+//                                options.type = 'image';
+//
+//                            } else {
+//                                // iframe
+//                                angular.extend(options, {
+//                                    type: 'iframe',
+//                                    width: '90%',
+//                                    height: '95%'
+//                                });
+//                            }
+//
+//                            // override default options from attributes
+//                            angular.forEach(['width', 'height', 'title', 'type'], function (attr) {
+//                                if (attrs[attr]) {
+//                                    options[attr] = attrs[attr];
+//                                }
+//                            });
+//
+//                            $('#fancybox-left').css(arrowStyle);
+//                            $('#fancybox-right').css(arrowStyle);
+//
+//                            return options;
+//                        }
+//                    });
+//                });
+//            }
+//        };
+//    }]);
+//
+//})(window.angular, window.jQuery);

@@ -39,12 +39,28 @@ In a browser:
 
 Include the FancyBoxPlus plug-in and the directive on a page.
 
-Options via tag
+
+Basic via attribute
 ```html
-<img id="cb_03" src="path_to_image" >
-<fancybox-plus box-for="cb_03"  options="{href:'images/large/image1.jpg', opacity:0.5, title:'A nice colorbox' }" />
+<a id="fbplus_01" href="path_to_image" fancyboxable>
 ```
 
+Options via attribute
+```html
+<a id="fbplus_01" href="path_to_image" fancyboxable="{padding:30}">
+```
+
+Basic via tag
+```html
+<a id="fbplus_02" href="path_to_image" >
+<fancybox box-for="fbplus_02" />
+```
+
+Options via tag
+```html
+<a id="fbplus_03" href="path_to_image" >
+<fancybox box-for="fbplus_03"  options="{href:'images/large/image1.jpg', title:'A nice fancybox' }" />
+```
 For more information on how to setup and customise, [check the examples](http://igorlino.github.io/angular-fancybox-plus/).
 
 ## License

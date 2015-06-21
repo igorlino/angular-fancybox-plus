@@ -1,0 +1,180 @@
+<div id="col_wrap">
+    <div id="col_top"></div>
+    <div id="col_left">
+        <h1>How to use</h1>
+
+        <div class="list">
+            <p class="h">1. First, make sure you are using valid <a
+                href="http://www.alistapart.com/articles/doctype/">DOCTYPE</a></p>
+
+            <p>This is required for FancyBox-Plus to look and function correctly.</p>
+        </div>
+
+        <div class="list">
+            <p class="h">2. Include necessary JS files</p>
+
+            <p>Loading jQuery from CDN (<a target="_blank"
+                                           href="http://en.wikipedia.org/wiki/Content_Delivery_Network"
+                                           rel="nofollow">Content Delivery Network</a>) is recommended</p>
+<pre>
+<code>&lt;script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"&gt;&lt;/script&gt;
+
+    &lt;script type="text/javascript" src="https://rawgit.com/igorlino/fancybox-plus/master/src/jquery.fancybox-plus.js"&gt;&lt;/script&gt;
+</code></pre>
+
+            <p><em>Optional</em> - Add transitions as jQuery by default supports only "swing" and "linear"</p>
+
+                <pre><code>&lt;script type="text/javascript"
+                    src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"&gt;&lt;/script&gt;</code></pre>
+
+            <p><em>Optional</em> - Enable "mouse-wheel" to navigate throught gallery items</p>
+
+                <pre><code>&lt;script type="text/javascript"
+                    src="https://rawgit.com/jquery/jquery-mousewheel/master/jquery.mousewheel.js"&gt;&lt;/script&gt;</code></pre>
+
+
+        </div>
+        <div class="list">
+            <p class="h">3. Add FancyBox-Plus CSS file</p>
+
+            <p>
+                Don`t forget to change background image paths if CSS file is not in the same directory.
+            </p>
+
+            <p>
+                Also, check src paths for AlphaImageLoader as they are relative to the HTML document, while regular
+                CSS background images are relative to the CSS document
+                (<a href="http://groups.google.com/group/fancybox/browse_thread/thread/8530478044b9f586#">read
+                more</a>).
+            </p>
+
+                <pre><code>&lt;link rel="stylesheet"
+                    href="https://rawgit.com/igorlino/fancybox-plus/master/css/jquery.fancybox-plus.css" type="text/css"
+                    media="screen" /&gt;</code></pre>
+
+        </div>
+
+
+        <div class="list">
+            <p class="h">4. Create a link element (&lt;a href&gt;)</p>
+
+            <p>Images</p>
+
+            <pre><code>&lt;a id="single_image" href="image_big.jpg"&gt;&lt;img src="image_small.jpg" alt=""/&gt;&lt;/a&gt;</code></pre>
+
+
+            <p>Inline content</p>
+
+<pre><code>&lt;a id="inline" href="#data"&gt;This shows content of element who has id="data"&lt;/a&gt;
+
+    &lt;div style="display:none"&gt;&lt;div id="data"&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit.&lt;/div&gt;&lt;/div&gt;
+</code></pre>
+
+            <p>Iframe</p>
+
+<pre><code>&lt;a href="http://www.example?iframe"&gt;This goes to iframe&lt;/a&gt;
+
+    or
+
+    &lt;a class="iframe" href="http://www.example"&gt;This goes to iframe&lt;/a&gt;
+</code></pre>
+
+            <p>Ajax</p>
+
+                <pre><code>&lt;a href="http://www.example/data.php"&gt;This takes content using
+                    ajax&lt;/a&gt;</code></pre>
+
+            <p>
+                <em>Optional</em> - Use the <em>title</em> attribute for anchors if you want to show a caption
+            </p>
+
+            <p>
+                <em>Note</em> - You may want to set <b>hideOnContentClick</b> to <b>false</b> if you display iframed
+                or inline content and it containts clickable elements (for example - play buttons for movies, links
+                to other pages)
+            </p>
+        </div>
+
+        <div class="list">
+            <p class="h">5. Fire plugin using jQuery selector</p>
+
+            <p>
+                If you are not familiar with jQuery, please, read <a
+                href="http://docs.jquery.com/Tutorials:How_jQuery_Works">this tutorial for beginners</a>
+            </p>
+
+            <p>
+                Sample examples:
+            </p>
+
+<pre><code>$(document).ready(function() {
+
+    /* This is basic - uses default settings */
+
+    $("a#single_image").fancyboxPlus();
+
+    /* Using custom settings */
+
+    $("a#inline").fancyboxPlus({
+    'hideOnContentClick': true
+    });
+
+    /* Apply fancybox to multiple items */
+
+    $("a.group").fancyboxPlus({
+    'transitionIn' : 'elastic',
+    'transitionOut' : 'elastic',
+    'speedIn' : 600,
+    'speedOut' : 200,
+    'overlayShow' : false
+    });
+
+    });
+</code></pre>
+
+            <p>
+                <em>Note</em> - ID's are meant for a SINGLE instance. If you want to use the same script for all
+                your images/elements then use classes instead.
+            </p>
+
+            <p>
+                <em>Note</em> - Galleries are created from elements who have the same "rel" tag, example:
+            </p>
+
+ 	<pre><code>/* HTML */
+        &lt;a class="grouped_elements" rel="group1" href="image_big_1.jpg"&gt;&lt;img src="image_small_1.jpg" alt=""/&gt;&lt;/a&gt;
+        &lt;a class="grouped_elements" rel="group1" href="image_big_2.jpg"&gt;&lt;img src="image_small_2.jpg" alt=""/&gt;&lt;/a&gt;
+
+        &lt;a class="grouped_elements" rel="group2" href="image_big_3.jpg"&gt;&lt;img src="image_small_3.jpg" alt=""/&gt;&lt;/a&gt;
+        &lt;a class="grouped_elements" rel="group2" href="image_big_4.jpg"&gt;&lt;img src="image_small_4.jpg" alt=""/&gt;&lt;/a&gt;
+
+        /* This will create two galleries */
+
+        $("a.grouped_elements").fancyboxPlus();
+    </code></pre>
+
+
+        </div>
+    </div>
+
+    <div id="col_right">
+        <div id="col_sep">
+
+            <p><b>Current Release</b><br/><a href="">Version</b> 1.3.5 (20.06.2015)</a></p>
+
+            <p><a href="https://github.com/igorlino/fancybox-plus/blob/master/CHANGELOG.md">Changelog</a></p>
+
+        </div>
+
+        <div id="adblock">
+
+            <h2>Our Sponsors</h2>
+
+
+        </div>
+    </div>
+
+    <div class="clear"></div>
+</div>
+
+<div id="col_bottom"></div>
