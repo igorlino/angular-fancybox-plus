@@ -1,0 +1,270 @@
+<div id="col_wrap">
+    <div id="col_top"></div>
+    <div id="col_left">
+
+        <h1>Tips <span>&amp;</span> Tricks</h1>
+
+        <p>Collection of some code snippets </p>
+
+        <div class="list">
+            <p class="h"><span>7.</span> Custom title formating - lightbox style</p>
+
+            <p>JavaScript</p>
+
+	<pre><code>function formatTitle(title, currentArray, currentIndex, currentOpts) {
+        return '&lt;div id=&quot;tip7-title&quot;&gt;&lt;span&gt;&lt;a href=&quot;javascript:;&quot; onclick=&quot;$.fancyboxPlus.close();&quot;&gt;&lt;img
+        src=&quot;/data/closelabel.gif&quot; /&gt;&lt;/a&gt;&lt;/span&gt;' + (title &amp;&amp; title.length ? '&lt;b&gt;'
+        + title + '&lt;/b&gt;' : '' ) + 'Image ' + (currentIndex + 1) + ' of ' + currentArray.length + '&lt;/div&gt;';
+        }
+
+        $(".tip7").fancyboxPlus({
+        'showCloseButton' : false,
+        'titlePosition' : 'inside',
+        'titleFormat' : formatTitle
+        });</code></pre>
+
+            <p>CSS</p>
+
+	<pre><code>#tip7-title { text-align: left; }
+
+        #tip7-title b { display: block; margin-right: 80px; }
+
+        #tip7-title span { float: right; }</code></pre>
+
+            <p>
+                Example <br/>
+                <a class="tip7" rel="tip7"
+                   title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam quis mi eu elit tempor facilisis id et neque"
+                   href="http://c1.staticflickr.com/1/356/18957923475_6ba569c037_b.jpg"
+                   fancyboxable="tip7">
+                    <img alt="tip7" src="http://c1.staticflickr.com/1/356/18957923475_6ba569c037_m.jpg">
+                </a>
+
+                <a class="tip7" rel="tip7" title="Etiam quis mi eu elit tempor facilisis id et neque"
+                   href="http://c1.staticflickr.com/1/415/18775659288_7694c7e058_b.jpg"
+                   fancyboxable="tip7">
+                    <img alt="tip7" src="http://c1.staticflickr.com/1/415/18775659288_7694c7e058_m.jpg">
+                </a>
+            </p>
+        </div>
+
+
+        <div class="list">
+            <p class="h"><span>6.</span> Start FancyBox on page load</p>
+
+            <p>If you have attached FancyBox than you can trigger click method </p>
+
+	<pre><code>jQuery(document).ready(function() {
+        $("#your_selector").trigger('click');
+        });</code></pre>
+
+            <p>Alternative method is to use manual call</p>
+
+    <pre><code>jQuery(document).ready(function() {
+        $.fancyboxPlus(
+        '&lt;h2&gt;Hi!&lt;/h2&gt;&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam quis mi eu elit
+        tempor facilisis id et neque&lt;/p&gt;',
+        {
+        'autoDimensions' : false,
+        'width' : 350,
+        'height' : 'auto',
+        'transitionIn' : 'none',
+        'transitionOut' : 'none'
+        }
+        );
+        });</code></pre>
+        </div>
+
+        <div class="list">
+            <p class="h"><span>5.</span> Display login form <a id="tip5" title="Login" href="#login_form"
+                                                               fancyboxable="tip5">Try
+                now</a></p></p>
+
+            <p>Sample HTML form:</p>
+
+<pre><code>&lt;div style=&quot;display:none&quot;&gt;
+    &lt;form id=&quot;login_form&quot; method=&quot;post&quot; action=&quot;&quot;&gt;
+    &lt;p id=&quot;login_error&quot;&gt;Please, enter data&lt;/p&gt;
+    &lt;p&gt;
+    &lt;label for=&quot;login_name&quot;&gt;Login: &lt;/label&gt;
+    &lt;input type=&quot;text&quot; id=&quot;login_name&quot; name=&quot;login_name&quot; size=&quot;30&quot; /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+    &lt;label for=&quot;login_pass&quot;&gt;Password: &lt;/label&gt;
+    &lt;input type=&quot;password&quot; id=&quot;login_pass&quot; name=&quot;login_pass&quot; size=&quot;30&quot; /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;Login&quot; /&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+    &lt;em&gt;Leave empty so see resizing&lt;/em&gt;
+    &lt;/p&gt;
+    &lt;/form&gt;
+    &lt;/div&gt;</code></pre>
+
+            <p>Attach FancyBox: </p>
+
+<pre><code>$("#tip5").fancyboxPlus({
+    'scrolling' : 'no',
+    'titleShow' : false,
+    'onClosed' : function() {
+    $("#login_error").hide();
+    }
+    });</code></pre>
+
+            <p>Simple validation; submit data using Ajax and display response</p>
+
+<pre><code>$("#login_form").bind("submit", function() {
+
+    if ($("#login_name").val().length < 1 || $("#login_pass").val().length < 1) {
+    $("#login_error").show();
+    $.fancyboxPlus.resize();
+    return false;
+    }
+
+    $.fancyboxPlus.showActivity();
+
+    $.ajax({
+    type : "POST",
+    cache : false,
+    url : "/data/login.php",
+    data : $(this).serializeArray(),
+    success: function(data) {
+    $.fancyboxPlus(data);
+    }
+    });
+
+    return false;
+    });</code></pre>
+        </div>
+
+        <div style="display:none">
+            <form id="login_form" method="post" action="">
+                <p id="login_error">Please, enter data</p>
+
+                <p>
+                    <label for="login_name">Login: </label>
+                    <input type="text" id="login_name" name="login_name" size="30"/>
+                </p>
+
+                <p>
+                    <label for="login_pass">Password: </label>
+                    <input type="password" id="login_pass" name="login_pass" size="30"/>
+                </p>
+
+                <p>
+                    <input type="submit" value="Login"/>
+                </p>
+
+                <p>
+                    <em>Leave empty so see resizing</em>
+                </p>
+            </form>
+        </div>
+
+
+        <div class="list">
+            <p class="h"><span>4.</span> Show youtube clips.
+                <a id="tip4" title="'Zombieland' Trailer"
+                   href="http://www.youtube.com/watch?v=071KqJu7WVo&feature=player_embedded#at=41"
+                   fancyboxable="tip4">Try now</a></p>
+
+            <p>This script also enables full screen mode if video's href has the parameter &fs=1 </p>
+<pre><code>$("#tip4").click(function() {
+    $.fancyboxPlus({
+    'padding' : 0,
+    'autoScale' : false,
+    'transitionIn' : 'none',
+    'transitionOut' : 'none',
+    'title' : this.title,
+    'width' : 680,
+    'height' : 495,
+    'href' : this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
+    'type' : 'swf',
+    'swf' : {
+    'wmode' : 'transparent',
+    'allowfullscreen' : 'true'
+    }
+    });
+
+    return false;
+    });</code></pre>
+        </div>
+
+
+        <div class="list">
+            <p class="h"><span>3.</span> Show/hide title on hover.
+                <a id="tip3"
+                   title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin faucibus mauris elit. Sed at quam nisl. Etiam velit felis, semper sed tincidunt vitae, pulvinar non ante."
+                   href="http://c1.staticflickr.com/1/376/18328194074_175963cb99_b.jpg"
+                   fancyboxable="tip3">Try now</a></p>
+
+<pre><code>$("#tip3").fancyboxPlus({
+    'titlePosition' : 'over',
+    'onComplete' : function() {
+    $("#fbplus-wrap").hover(function() {
+    $("#fbplus-title").show();
+    }, function() {
+    $("#fbplus-title").hide();
+    });
+    }
+    });</code></pre>
+        </div>
+
+
+        <div class="list">
+            <p class="h"><span>2.</span> Select all anchor tags that contain image tags</p>
+
+            <pre><code>$("a:has(img)").fancyboxPlus();</code></pre>
+
+            <p>Alternative method - apply Fancybox to only those &lt;a&gt; tags that have href attributes that end
+                with .jpg, .png or .gif:</p>
+
+            <pre><code>$("a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").fancyboxPlus();</code></pre>
+        </div>
+
+
+        <div class="list">
+            <p class="h"><span>1.</span> Create gallery from jQuery object collection</p>
+
+            <pre><code>$("a.fancybox").attr('rel', 'gallery').fancyboxPlus();</code></pre>
+        </div>
+
+
+        <!--
+
+        http://jquery.diaz-cornen.com/fancybox/index_map.html
+
+        if ($.support.opacity) {
+                    $("#fbplus-outer").css({
+                        'backgroundColor'	: "transparent",
+                        'backgroundImage'	: "url(/scripts/web/fbplus/fbplus_bg.png)"
+                    });
+                }
+
+                -->
+
+
+    </div>
+
+    <div id="col_right">
+        <div id="col_sep">
+
+            <p><b>Current Release</b><br/><a href="">Version</b> 1.3.5 (20.06.2015)</a></p>
+
+            <p><a href="https://github.com/igorlino/fancybox-plus/blob/master/CHANGELOG.md">Changelog</a></p>
+
+        </div>
+
+        <div id="adblock">
+
+            <h2>Our Sponsors</h2>
+
+
+        </div>
+    </div>
+
+    <div class="clear"></div>
+</div>
+
+<div id="col_bottom"></div>

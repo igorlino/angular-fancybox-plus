@@ -1,0 +1,337 @@
+<div id="col_wrap">
+    <div id="col_top"></div>
+    <div id="col_left">
+
+
+        <h1>Available options</h1>
+
+        <p>
+            You can pass options as key/value object to fancyboxPlus() function or modify them at the bottom of
+            FancyBox-Plus JS file.
+        </p>
+
+        <table width="100%" class="options" cellpadding="0" cellspacing="0">
+            <thead>
+            <tr>
+                <th width="120">Key</th>
+                <th width="80">Default value</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>padding</td>
+                <td>10</td>
+                <td>Space between FancyBox-Plus wrapper and content</td>
+            </tr>
+            <tr>
+                <td>margin</td>
+                <td>20</td>
+                <td>Space between viewport and FancyBox-Plus wrapper</td>
+            </tr>
+            <tr>
+                <td>opacity</td>
+                <td>false</td>
+                <td>When true, transparency of content is changed for elastic transitions</td>
+            </tr>
+            <tr>
+                <td>modal</td>
+                <td>false</td>
+                <td>When true, 'overlayShow' is set to 'true' and 'hideOnOverlayClick', 'hideOnContentClick',
+                    'enableEscapeButton', 'showCloseButton' are set to 'false'
+                </td>
+            </tr>
+            <tr>
+                <td>cyclic</td>
+                <td>false</td>
+                <td>When true, galleries will be cyclic, allowing you to keep pressing next/back.</td>
+            </tr>
+            <tr class="sep">
+                <td>scrolling</td>
+                <td>'auto'</td>
+                <td>Set the overflow CSS property to create or hide scrollbars. Can be set to 'auto', 'yes', or
+                    'no'
+                </td>
+            </tr>
+
+            <tr>
+                <td>width</td>
+                <td>560</td>
+                <td>Width for content types 'iframe' and 'swf'. Also set for inline content if 'autoDimensions' is
+                    set to 'false'
+                </td>
+            </tr>
+            <tr class="sep">
+                <td>height</td>
+                <td>340</td>
+                <td>Height for content types 'iframe' and 'swf'. Also set for inline content if 'autoDimensions' is
+                    set to 'false'
+                </td>
+            </tr>
+
+            <tr>
+                <td>autoScale</td>
+                <td>true</td>
+                <td>If true, FancyBox-Plus is scaled to fit in viewport</td>
+            </tr>
+            <tr>
+                <td>autoDimensions</td>
+                <td>true</td>
+                <td>For inline and ajax views, resizes the view to the element recieves. Make sure it has dimensions
+                    otherwise this will give unexpected results
+                </td>
+            </tr>
+            <tr class="sep">
+                <td>centerOnScroll</td>
+                <td>false</td>
+                <td>When true, FancyBox-Plus is centered while scrolling page</td>
+            </tr>
+
+
+            <tr>
+                <td>ajax</td>
+                <td>{ }</td>
+                <td>Ajax options <br/>
+                    <small> Note: 'error' and 'success' will be overwritten by FancyBox-Plus</small>
+                </td>
+            </tr>
+            <tr class="sep">
+                <td>swf</td>
+                <td>{wmode: 'transparent'}</td>
+                <td>Params to put on the swf object</td>
+            </tr>
+
+
+            <tr>
+                <td>hideOnOverlayClick</td>
+                <td>true</td>
+                <td>Toggle if clicking the overlay should close FancyBox</td>
+            </tr>
+            <tr class="sep">
+                <td>hideOnContentClick</td>
+                <td>false</td>
+                <td>Toggle if clicking the content should close FancyBox</td>
+            </tr>
+
+            <tr>
+                <td>overlayShow</td>
+                <td>true</td>
+                <td>Toggle overlay</td>
+            </tr>
+            <tr>
+                <td>overlayOpacity</td>
+                <td>0.3</td>
+                <td>Opacity of the overlay (from 0 to 1; default - 0.3)</td>
+            </tr>
+            <tr class="sep">
+                <td>overlayColor</td>
+                <td>'#666'</td>
+                <td>Color of the overlay</td>
+            </tr>
+
+
+            <tr>
+                <td>titleShow</td>
+                <td>true</td>
+                <td>Toggle title</td>
+            </tr>
+            <tr>
+                <td>titlePosition</td>
+                <td>'outside'</td>
+                <td>The position of title. Can be set to 'outside', 'inside' or 'over'</td>
+            </tr>
+            <tr class="sep">
+                <td>titleFormat</td>
+                <td>null</td>
+                <td>Callback to customize title area. You can set any html - custom image counter or even custom
+                    navigation
+                </td>
+            </tr>
+
+            <tr>
+                <td>transitionIn, transitionOut</td>
+                <td>'fade'</td>
+                <td>The transition type. Can be set to 'elastic', 'fade' or 'none'</td>
+            </tr>
+            <tr>
+                <td>speedIn, speedOut</td>
+                <td>300</td>
+                <td>Speed of the fade and elastic transitions, in milliseconds</td>
+            </tr>
+            <tr>
+                <td>changeSpeed</td>
+                <td>300</td>
+                <td>Speed of resizing when changing gallery items, in milliseconds</td>
+            </tr>
+            <tr>
+                <td>changeFade</td>
+                <td>'fast'</td>
+                <td>Speed of the content fading while changing gallery items</td>
+            </tr>
+            <tr class="sep">
+                <td>easingIn, easingOut</td>
+                <td>'swing'</td>
+                <td>Easing used for elastic animations</td>
+            </tr>
+            <tr>
+                <td>showCloseButton</td>
+                <td>true</td>
+                <td>Toggle close button</td>
+            </tr>
+            <tr>
+                <td>showNavArrows</td>
+                <td>true</td>
+                <td>Toggle navigation arrows</td>
+            </tr>
+            <tr class="sep">
+                <td>enableEscapeButton</td>
+                <td>true</td>
+                <td>Toggle if pressing Esc button closes FancyBox</td>
+            </tr>
+
+            <tr>
+                <td>onStart</td>
+                <td>null</td>
+                <td>Will be called right before attempting to load the content</td>
+            </tr>
+            <tr>
+                <td>onCancel</td>
+                <td>null</td>
+                <td>Will be called after loading is canceled</td>
+            </tr>
+            <tr>
+                <td>onComplete</td>
+                <td>null</td>
+                <td>Will be called once the content is displayed</td>
+            </tr>
+            <tr>
+                <td>onCleanup</td>
+                <td>null</td>
+                <td>Will be called just before closing</td>
+            </tr>
+            <tr>
+                <td>onClosed</td>
+                <td>null</td>
+                <td>Will be called once FancyBox-Plus is closed</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h1>Advanced options</h1>
+
+        <table width="100%" class="options" cellpadding="0" cellspacing="0">
+            <thead>
+            <tr>
+                <th width="120">Key</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>type</td>
+                <td>Forces content type. Can be set to 'image', 'ajax', 'iframe', 'swf' or 'inline'</td>
+            </tr>
+            <tr>
+                <td>href</td>
+                <td>Forces content source</td>
+            </tr>
+            <tr>
+                <td>title</td>
+                <td>Forces title</td>
+            </tr>
+            <tr>
+                <td>content</td>
+                <td>Forces content (can be any html data)</td>
+            </tr>
+            <tr>
+                <td>orig</td>
+                <td>Sets object whos position and dimensions will be used by 'elastic' transition</td>
+            </tr>
+            <tr>
+                <td>index</td>
+                <td>Custom start index of manually created gallery
+                    <small>(since 1.3.1)</small>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <br/>
+
+        <h1>Public Methods</h1>
+
+        <p>FancyBox-Plus provides some function to work with it</p>
+
+        <table width="100%" class="options" cellpadding="0" cellspacing="0">
+            <thead>
+            <tr>
+                <th width="150">Method</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>$.fancyboxPlus.showActivity</td>
+                <td>Shows loading animation</td>
+            </tr>
+            <tr>
+                <td>$.fancyboxPlus.hideActivity</td>
+                <td>Hides loading animation</td>
+            </tr>
+            <tr>
+                <td>$.fancyboxPlus.next</td>
+                <td>Displays the next gallery item</td>
+            </tr>
+            <tr>
+                <td>$.fancyboxPlus.prev</td>
+                <td>Displays the previous gallery item</td>
+            </tr>
+            <tr>
+                <td>$.fancyboxPlus.pos</td>
+                <td>Displays item by index from gallery</td>
+            </tr>
+            <tr>
+                <td>$.fancyboxPlus.cancel</td>
+                <td>Cancels loading content</td>
+            </tr>
+            <tr>
+                <td>$.fancyboxPlus.close</td>
+                <td>Hides FancyBox-Plus <br/>
+                    <small>Within an iframe use - parent.$.fancyboxPlus.close();</small>
+                </td>
+            </tr>
+            <tr>
+                <td>$.fancyboxPlus.resize</td>
+                <td>Auto-resizes FancyBox-Plus height to match height of content</td>
+            </tr>
+            <tr>
+                <td>$.fancyboxPlus.center</td>
+                <td>Centers FancyBox-Plus in viewport</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="col_right">
+        <div id="col_sep">
+
+            <p><b>Current Release</b><br/><a href="">Version</b> 1.3.5 (20.06.2015)</a></p>
+
+            <p><a href="https://github.com/igorlino/fancybox-plus/blob/master/CHANGELOG.md">Changelog</a></p>
+
+
+        </div>
+
+        <div id="adblock">
+
+            <h2>Our Sponsors</h2>
+
+
+        </div>
+    </div>
+
+    <div class="clear"></div>
+</div>
+
+<div id="col_bottom"></div>
