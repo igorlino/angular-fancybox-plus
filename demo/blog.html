@@ -11,7 +11,7 @@
 
             <p>JavaScript</p>
 
-	<pre><code>function formatTitle(title, currentArray, currentIndex, currentOpts) {
+	<pre><code class="language-javascript">function formatTitle(title, currentArray, currentIndex, currentOpts) {
         return '&lt;div id=&quot;tip7-title&quot;&gt;&lt;span&gt;&lt;a href=&quot;javascript:;&quot; onclick=&quot;$.fancyboxPlus.close();&quot;&gt;&lt;img
         src=&quot;/data/closelabel.gif&quot; /&gt;&lt;/a&gt;&lt;/span&gt;' + (title &amp;&amp; title.length ? '&lt;b&gt;'
         + title + '&lt;/b&gt;' : '' ) + 'Image ' + (currentIndex + 1) + ' of ' + currentArray.length + '&lt;/div&gt;';
@@ -25,7 +25,7 @@
 
             <p>CSS</p>
 
-	<pre><code>#tip7-title { text-align: left; }
+	<pre><code class="language-css">#tip7-title { text-align: left; }
 
         #tip7-title b { display: block; margin-right: 80px; }
 
@@ -41,9 +41,9 @@
                 </a>
 
                 <a class="tip7" rel="tip7" title="Etiam quis mi eu elit tempor facilisis id et neque"
-                   href="http://c1.staticflickr.com/1/415/18775659288_7694c7e058_b.jpg"
+                   href="http://c1.staticflickr.com/1/317/18942236206_d5e90fc7bd_b.jpg"
                    fancyboxable="tip7">
-                    <img alt="tip7" src="http://c1.staticflickr.com/1/415/18775659288_7694c7e058_m.jpg">
+                    <img alt="tip7" src="http://c1.staticflickr.com/1/317/18942236206_d5e90fc7bd_m.jpg">
                 </a>
             </p>
         </div>
@@ -54,13 +54,13 @@
 
             <p>If you have attached FancyBox than you can trigger click method </p>
 
-	<pre><code>jQuery(document).ready(function() {
+	<pre><code class="language-javascript">jQuery(document).ready(function() {
         $("#your_selector").trigger('click');
         });</code></pre>
 
             <p>Alternative method is to use manual call</p>
 
-    <pre><code>jQuery(document).ready(function() {
+    <pre><code class="language-javascript">jQuery(document).ready(function() {
         $.fancyboxPlus(
         '&lt;h2&gt;Hi!&lt;/h2&gt;&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam quis mi eu elit
         tempor facilisis id et neque&lt;/p&gt;',
@@ -82,7 +82,7 @@
 
             <p>Sample HTML form:</p>
 
-<pre><code>&lt;div style=&quot;display:none&quot;&gt;
+<pre><code class="language-markup">&lt;div style=&quot;display:none&quot;&gt;
     &lt;form id=&quot;login_form&quot; method=&quot;post&quot; action=&quot;&quot;&gt;
     &lt;p id=&quot;login_error&quot;&gt;Please, enter data&lt;/p&gt;
     &lt;p&gt;
@@ -104,7 +104,7 @@
 
             <p>Attach FancyBox: </p>
 
-<pre><code>$("#tip5").fancyboxPlus({
+<pre><code class="language-javascript">$("#tip5").fancyboxPlus({
     'scrolling' : 'no',
     'titleShow' : false,
     'onClosed' : function() {
@@ -114,7 +114,7 @@
 
             <p>Simple validation; submit data using Ajax and display response</p>
 
-<pre><code>$("#login_form").bind("submit", function() {
+<pre><code class="language-javascript">$("#login_form").bind("submit", function() {
 
     if ($("#login_name").val().length < 1 || $("#login_pass").val().length < 1) {
     $("#login_error").show();
@@ -170,7 +170,7 @@
                    fancyboxable="tip4">Try now</a></p>
 
             <p>This script also enables full screen mode if video's href has the parameter &fs=1 </p>
-<pre><code>$("#tip4").click(function() {
+<pre><code class="language-javascript">$("#tip4").click(function() {
     $.fancyboxPlus({
     'padding' : 0,
     'autoScale' : false,
@@ -199,7 +199,7 @@
                    href="http://c1.staticflickr.com/1/376/18328194074_175963cb99_b.jpg"
                    fancyboxable="tip3">Try now</a></p>
 
-<pre><code>$("#tip3").fancyboxPlus({
+<pre><code class="language-javascript">$("#tip3").fancyboxPlus({
     'titlePosition' : 'over',
     'onComplete' : function() {
     $("#fbplus-wrap").hover(function() {
@@ -215,19 +215,19 @@
         <div class="list">
             <p class="h"><span>2.</span> Select all anchor tags that contain image tags</p>
 
-            <pre><code>$("a:has(img)").fancyboxPlus();</code></pre>
+            <pre><code class="language-javascript">$("a:has(img)").fancyboxPlus();</code></pre>
 
             <p>Alternative method - apply Fancybox to only those &lt;a&gt; tags that have href attributes that end
                 with .jpg, .png or .gif:</p>
 
-            <pre><code>$("a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").fancyboxPlus();</code></pre>
+            <pre><code class="language-javascript">$("a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").fancyboxPlus();</code></pre>
         </div>
 
 
         <div class="list">
             <p class="h"><span>1.</span> Create gallery from jQuery object collection</p>
 
-            <pre><code>$("a.fancybox").attr('rel', 'gallery').fancyboxPlus();</code></pre>
+            <pre><code class="language-javascript">$("a.fancybox").attr('rel', 'gallery').fancyboxPlus();</code></pre>
         </div>
 
 
